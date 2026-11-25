@@ -7,56 +7,27 @@ Welcome to GDB Online.
 
 *******************************************************************************/
 #include <stdio.h>
-
-// Function to find the first or last occurrence of target
-int findOccurrence(int nums[], int n, int target, int findFirst) {
-    int low = 0, high = n - 1;
-    int result = -1;
-
-    while (low <= high) {
-        int mid = low + (high - low) / 2;
-
-        if (nums[mid] == target) {
-            result = mid; // Potential answer found
-            if (findFirst) {
-                high = mid - 1; // Keep searching on the left side
-            } else {
-                low = mid + 1;  // Keep searching on the right side
-            }
-        } else if (nums[mid] < target) {
-            low = mid + 1;
-        } else {
-            high = mid - 1;
-        }
-    }
-    return result;
-}
+#include <math.h>
 
 int main() {
-    int n, target;
-
-    // Input array size
-    printf("Enter the number of elements: ");
-    scanf("%d", &n);
-
-    int nums[n];
-    printf("Enter %d sorted elements: ", n);
-    for (int i = 0; i < n; i++) {
-        scanf("%d", &nums[i]);
+    int n;
+    
+    // Read input
+    if (scanf("%d", &n) != 1 || n <= 0) {
+        return 1;
     }
 
-    // Input target value
-    printf("Enter the target: ");
-    scanf("%d", &target);
+    // Total sum of numbers from 1 to n
+    int totalSum = n * (n + 1) / 2;
+    
+    // Find the integer square root of totalSum
+    int x = (int)sqrt(totalSum);
 
-    int first = findOccurrence(nums, n, target, 1);
-    int last = findOccurrence(nums, n, target, 0);
-
-    // Output formatting matching the sample test cases
-    if (first == -1) {
-        printf("\"-1,-1\"\n");
+    // Check if totalSum is a perfect square
+    if (x * x == totalSum) {
+        printf("%d\n", x);
     } else {
-        printf("%d,%d\n", first, last);
+        printf("-1\n");
     }
 
     return 0;
